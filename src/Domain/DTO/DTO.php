@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Domain\DTO;
 
@@ -9,7 +11,6 @@ interface DTO
 {
     /**
      * @param array<int, Spaceship> $data
-     * @return BaseEntity
      */
     public static function toEntity(array $data): BaseEntity;
 }

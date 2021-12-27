@@ -1,15 +1,17 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\Database\Model;
 
+use App\Infrastructure\Persistence\Database\Repository\SpaceshipRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
-use App\Infrastructure\Persistence\Database\Repository\SpaceshipRepository;
 
 #[ORM\Entity(repositoryClass: SpaceshipRepository::class)]
-#[ORM\Table(name: "spaceships")]
-#[Index(columns: ["name"], name: "search_by_name_idx")]
+#[ORM\Table(name: 'spaceships')]
+#[Index(columns: ['name'], name: 'search_by_name_idx')]
 class Spaceship
 {
     #[ORM\Id]
@@ -22,19 +24,19 @@ class Spaceship
     #[ORM\Column(type: Types::STRING, length: 50)]
     private string $engine;
 
-    public function setId($id): self
+    public function setId(string $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    public function setName($name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    public function setEngine($engine): self
+    public function setEngine(string $engine): self
     {
         $this->engine = $engine;
         return $this;

@@ -1,10 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Domain\Entity;
 
 final class Spaceship extends BaseEntity
 {
     private string $name;
+
     private string $engine;
 
     public function __construct(string|null $guid, string $name, string $engine)

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Infrastructure\Http\InputBoundary\Spaceship;
 
@@ -7,11 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class CreateValidator extends InputBoundary
 {
-
-    #[Assert\NotNull(message: "This value is not a valid for name field")]
+    #[Assert\NotNull(message: 'This value is not a valid for name field')]
     private ?string $name;
 
-    #[Assert\NotNull(message: "This value is not a valid for engine field")]
+    #[Assert\NotNull(message: 'This value is not a valid for engine field')]
     private ?string $engine;
 
     public function getName(): ?string

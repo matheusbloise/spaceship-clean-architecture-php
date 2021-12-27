@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Infrastructure\Http\OutputBoundary;
 
@@ -12,7 +14,7 @@ final class SpaceshipOutputBoundary extends OutputBoundary
         return [
             'id' => $entity->getGuid(),
             'name' => $entity->getName(),
-            'engine' => $entity->getEngine()
+            'engine' => $entity->getEngine(),
         ];
     }
 }

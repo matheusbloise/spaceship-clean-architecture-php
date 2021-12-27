@@ -1,18 +1,19 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\Database\Repository;
 
-use App\Domain\Entity\Spaceship;
 use App\Domain\Entity\Spaceship as SpaceshipEntity;
+use App\Domain\Repository\SpaceshipRepositoryInterface;
 use App\Infrastructure\DTO\SpaceshipDTO;
 use App\Infrastructure\Persistence\Database\Model\Spaceship as SpaceshipModel;
-use App\Domain\Repository\SpaceshipRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 class SpaceshipRepository extends ServiceEntityRepository implements SpaceshipRepositoryInterface
 {
-    CONST TABLE_FROM = 'App:Spaceship';
+    public const TABLE_FROM = 'App:Spaceship';
 
     public function __construct(ManagerRegistry $registry)
     {

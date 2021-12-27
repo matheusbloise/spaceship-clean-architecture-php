@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Infrastructure\Http\Controller;
 
@@ -20,31 +22,31 @@ final class SpaceshipController extends AbstractController
         $this->service = $service;
     }
 
-    #[Route("/spaceships", methods: "GET")]
+    #[Route('/spaceships', methods: 'GET')]
     public function index(): Response
     {
         $spaceship = $this->service->findAll();
 
-        if (!$spaceship) {
+        if (! $spaceship) {
             return $this->json(null, 404);
         }
 
         return $this->json(OutputBoundary::handle('Spaceships has been found with success', $spaceship));
     }
 
-    #[Route("/spaceships/{guid}", methods: "GET")]
+    #[Route('/spaceships/{guid}', methods: 'GET')]
     public function findByGuid(string $guid): Response
     {
         $spaceship = $this->service->findByGuid($guid);
 
-        if (!$spaceship) {
+        if (! $spaceship) {
             return $this->json([], 404);
         }
 
         return $this->json(OutputBoundary::handle('Spaceship has been found with success', $spaceship));
     }
 
-    #[Route("/spaceships", methods: "POST")]
+    #[Route('/spaceships', methods: 'POST')]
     public function store(Request $request, CreateValidator $dto): Response
     {
         $data = $request->request->all();
@@ -58,7 +60,7 @@ final class SpaceshipController extends AbstractController
         return $this->json(OutputBoundary::handle('Spaceship created with success', $spaceship), 201);
     }
 
-    #[Route("/spaceships/{guid}", methods: "PUT")]
+    #[Route('/spaceships/{guid}', methods: 'PUT')]
     public function update(Request $request, CreateValidator $dto, string $guid): Response
     {
         $data = $request->request->all();
@@ -72,7 +74,7 @@ final class SpaceshipController extends AbstractController
         return $this->json(SpaceshipOutputBoundary::handle('Spaceship updated with success', $spaceship), 201);
     }
 
-    #[Route("/spaceships/{guid}", methods: "DELETE")]
+    #[Route('/spaceships/{guid}', methods: 'DELETE')]
     public function remove(string $guid): Response
     {
         try {

@@ -12,9 +12,8 @@
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
-/tests/Reports
-/phpunit.xml
 .phpunit.result.cache
+/tests/Reports
 ###< phpunit/phpunit ###
 
 ###> friendsofphp/php-cs-fixer ###
@@ -23,5 +22,5 @@
 ###< friendsofphp/php-cs-fixer ###
 
 ###> phpstorm ###
-./.idea
+.idea/
 ###< phpstorm ###

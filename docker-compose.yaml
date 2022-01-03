@@ -6,6 +6,8 @@ services:
       context: ./.docker/php
     volumes:
       - ./:/app
+    environment:
+      - DB_TEST="postgresql://postgres:postgres@db:5432/spaceship?serverVersion=14&charset=utf8"
 
   web:
     image: nginx:latest

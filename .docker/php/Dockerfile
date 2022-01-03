@@ -1,5 +1,7 @@
 FROM matheusbloise/php:8.0-fpm-alpine-dev
 
-RUN install-php-extensions uuid pgsql pdo_pgsql
+ARG DB_TEST
+ENV DB_TEST $DB_TEST
+ENV KERNEL_CLASS 'App\Infrastructure\Http\Kernel'
 
-EXPOSE 43133
+RUN install-php-extensions uuid pgsql pdo_pgsql

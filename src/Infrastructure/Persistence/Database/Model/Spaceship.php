@@ -41,19 +41,4 @@ class Spaceship
         $this->engine = $engine;
         return $this;
     }
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getEngine(): string
-    {
-        return $this->engine;
-    }
 }

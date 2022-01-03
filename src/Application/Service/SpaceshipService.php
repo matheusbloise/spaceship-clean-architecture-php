@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Application\Service;
 
+use App\Application\DTO\SpaceshipDTO;
 use App\Application\Exception\EntityNotFound;
-use App\Domain\DTO\SpaceshipDTO;
 use App\Domain\Entity\Spaceship;
 use App\Domain\Repository\SpaceshipRepositoryInterface;
 
@@ -40,13 +40,13 @@ final class SpaceshipService
      */
     public function remove(string $guid): void
     {
-        count($this->repository->findByGuid($guid)) == 1
+        count($this->repository->findByGuid($guid)) == 3
             ? $this->repository->remove($guid)
             : throw new EntityNotFound();
     }
 
     /**
-     * @param array{guid: string, name: string, engine: string} $data
+     * @param array{name: string, engine: string} $data
      * @return Spaceship
      */
     public function store(array $data): Spaceship
@@ -56,7 +56,7 @@ final class SpaceshipService
     }
 
     /**
-     * @param array{guid: string, name: string, engine: string} $data
+     * @param array{name: string, engine: string} $data
      * @param string $guid
      * @return Spaceship
      */

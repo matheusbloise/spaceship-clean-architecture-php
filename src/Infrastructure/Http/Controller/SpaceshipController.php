@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Infrastructure\Http\Controller;
 
 use App\Application\Service\SpaceshipService;
+use App\Infrastructure\DTO\SpaceshipDTO;
 use App\Infrastructure\Http\InputBoundary\Spaceship\CreateValidator;
+use App\Infrastructure\Http\InputBoundary\Spaceship\UpdateValidator;
 use App\Infrastructure\Http\OutputBoundary\OutputBoundary;
-use App\Infrastructure\Http\OutputBoundary\SpaceshipOutputBoundary;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class SpaceshipController extends AbstractController
@@ -23,11 +24,11 @@ final class SpaceshipController extends AbstractController
     }
 
     #[Route('/spaceships', methods: 'GET')]
-    public function index(): Response
+    public function index(): JsonResponse
     {
         $spaceship = $this->service->findAll();
 
-        if (! $spaceship) {
+        if (count($spaceship) == 0) {
             return $this->json(null, 404);
         }
 
@@ -35,11 +36,11 @@ final class SpaceshipController extends AbstractController
     }
 
     #[Route('/spaceships/{guid}', methods: 'GET')]
-    public function findByGuid(string $guid): Response
+    public function findByGuid(string $guid): JsonResponse
     {
         $spaceship = $this->service->findByGuid($guid);
 
-        if (! $spaceship) {
+        if (count($spaceship) == 0) {
             return $this->json([], 404);
         }
 
@@ -47,40 +48,40 @@ final class SpaceshipController extends AbstractController
     }
 
     #[Route('/spaceships', methods: 'POST')]
-    public function store(Request $request, CreateValidator $dto): Response
+    public function store(Request $request, CreateValidator $validator): JsonResponse
     {
         $data = $request->request->all();
-        $errors = $dto->fromArray($data);
+        $errors = $validator->getErrors($data);
 
-        if (count($errors) > 0) {
+        if (count($errors)) {
             return $this->json($errors, 400);
         }
 
-        $spaceship = SpaceshipOutputBoundary::toArray($this->service->store($data));
+        $spaceship = SpaceshipDTO::toArray($this->service->store($data));
         return $this->json(OutputBoundary::handle('Spaceship created with success', $spaceship), 201);
     }
 
     #[Route('/spaceships/{guid}', methods: 'PUT')]
-    public function update(Request $request, CreateValidator $dto, string $guid): Response
+    public function update(Request $request, UpdateValidator $validator, string $guid): JsonResponse
     {
-        $data = $request->request->all();
-        $errors = $dto->fromArray($data);
+        $data = array_merge(['guid' => $guid], $request->request->all());
+        $errors = $validator->getErrors($data);
 
-        if (count($errors) > 0) {
+        if (count($errors)) {
             return $this->json($errors, 400);
         }
 
-        $spaceship = SpaceshipOutputBoundary::toArray($this->service->update($data, $guid));
-        return $this->json(SpaceshipOutputBoundary::handle('Spaceship updated with success', $spaceship), 201);
+        $spaceship = SpaceshipDTO::toArray($this->service->update($data, $guid));
+        return $this->json(OutputBoundary::handle('Spaceship updated with success', $spaceship), 201);
     }
 
     #[Route('/spaceships/{guid}', methods: 'DELETE')]
-    public function remove(string $guid): Response
+    public function remove(string $guid): JsonResponse
     {
         try {
             $this->service->remove($guid);
         } catch (\Exception $e) {
-            return $this->json(SpaceshipOutputBoundary::handle($e->getMessage()), $e->getCode());
+            return $this->json(OutputBoundary::handle($e->getMessage()), $e->getCode());
         }
         return $this->json(null, 204);
     }

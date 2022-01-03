@@ -6,6 +6,7 @@ namespace App\Infrastructure\Http\InputBoundary\Spaceship;
 
 use App\Infrastructure\Http\InputBoundary\InputBoundary;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CreateValidator extends InputBoundary
 {
@@ -15,17 +16,11 @@ final class CreateValidator extends InputBoundary
     #[Assert\NotNull(message: 'This value is not a valid for engine field')]
     private ?string $engine;
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function getEngine(): ?string
-    {
-        return $this->engine;
-    }
-
-    public function fromArray(array $data): array
+    /**
+     * @param array<string, string> $data
+     * @return array<string, string>
+     */
+    public function getErrors(array $data): array
     {
         $this->name = $data['name'] ?? null;
         $this->engine = $data['engine'] ?? null;

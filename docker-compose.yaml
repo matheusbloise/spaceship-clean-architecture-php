@@ -28,6 +28,3 @@ services:
 
 volumes:
   dbdata:
-
-networks:
-  app:

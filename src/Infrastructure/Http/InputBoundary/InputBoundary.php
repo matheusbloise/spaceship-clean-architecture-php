@@ -7,7 +7,7 @@ namespace App\Infrastructure\Http\InputBoundary;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-abstract class InputBoundary implements InputBoundaryInterface
+class InputBoundary implements InputBoundaryInterface
 {
     public function __construct(private ValidatorInterface $validator)
     {
@@ -15,9 +15,7 @@ abstract class InputBoundary implements InputBoundaryInterface
 
     public function validate(InputBoundary $inputBoundary): array
     {
-        return $this->getFailures(
-            $this->validator->validate($inputBoundary)
-        );
+        return $this->getFailures($this->validator->validate($inputBoundary));
     }
 
     public function getFailures(ConstraintViolationListInterface $constraintViolationList): array

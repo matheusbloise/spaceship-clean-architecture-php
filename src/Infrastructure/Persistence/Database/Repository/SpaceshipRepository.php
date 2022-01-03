@@ -7,7 +7,7 @@ namespace App\Infrastructure\Persistence\Database\Repository;
 use App\Domain\Entity\Spaceship as SpaceshipEntity;
 use App\Domain\Repository\SpaceshipRepositoryInterface;
 use App\Infrastructure\DTO\SpaceshipDTO;
-use App\Infrastructure\Persistence\Database\Model\Spaceship as SpaceshipModel;
+use App\Infrastructure\Persistence\Database\Model\Spaceship;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,7 +17,7 @@ class SpaceshipRepository extends ServiceEntityRepository implements SpaceshipRe
 
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SpaceshipModel::class);
+        parent::__construct($registry, Spaceship::class);
     }
 
     public function findAll(): array

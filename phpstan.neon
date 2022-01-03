@@ -1,0 +1,11 @@
+parameters:
+    tmpDir: ./var/cache/phpstan
+    level: max
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    phpVersion: 80000
+    paths:
+        - ./src/
+    excludePaths:
+        - './src/Infrastructure'
+        - './tests'

@@ -12,6 +12,7 @@
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
+/tests/Reports
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###

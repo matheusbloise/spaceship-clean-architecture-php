@@ -9,7 +9,8 @@ use App\Domain\Entity\Spaceship;
 final class SpaceshipDTO
 {
     /**
-     * @param array<string, string> $spaceship
+     * @param array{guid?: string, name: string, engine: string} $spaceship
+     * @return Spaceship
      */
     public static function toEntity(array $spaceship): Spaceship
     {

@@ -9,12 +9,11 @@ use App\Infrastructure\DTO\SpaceshipDTO;
 use App\Infrastructure\Http\InputBoundary\Spaceship\CreateValidator;
 use App\Infrastructure\Http\InputBoundary\Spaceship\UpdateValidator;
 use App\Infrastructure\Http\OutputBoundary\OutputBoundary;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class SpaceshipController extends AbstractController
+final class SpaceshipController extends BaseController
 {
     protected SpaceshipService $service;
 
@@ -29,10 +28,10 @@ final class SpaceshipController extends AbstractController
         $spaceship = $this->service->findAll();
 
         if (count($spaceship) == 0) {
-            return $this->json(null, 404);
+            return $this->toJson(status: 404);
         }
 
-        return $this->json(OutputBoundary::handle('Spaceships has been found with success', $spaceship));
+        return $this->toJson(OutputBoundary::handle('Spaceships has been found with success', $spaceship));
     }
 
     #[Route('/spaceships/{guid}', methods: 'GET')]
@@ -41,10 +40,10 @@ final class SpaceshipController extends AbstractController
         $spaceship = $this->service->findByGuid($guid);
 
         if (count($spaceship) == 0) {
-            return $this->json([], 404);
+            return $this->toJson(status: 404);
         }
 
-        return $this->json(OutputBoundary::handle('Spaceship has been found with success', $spaceship));
+        return $this->toJson(OutputBoundary::handle('Spaceship has been found with success', $spaceship));
     }
 
     #[Route('/spaceships', methods: 'POST')]
@@ -54,11 +53,11 @@ final class SpaceshipController extends AbstractController
         $errors = $validator->getErrors($data);
 
         if (count($errors)) {
-            return $this->json($errors, 400);
+            return $this->toJson($errors, 400);
         }
 
         $spaceship = SpaceshipDTO::toArray($this->service->store($data));
-        return $this->json(OutputBoundary::handle('Spaceship created with success', $spaceship), 201);
+        return $this->toJson(OutputBoundary::handle('Spaceship created with success', $spaceship), 201);
     }
 
     #[Route('/spaceships/{guid}', methods: 'PUT')]
@@ -68,21 +67,27 @@ final class SpaceshipController extends AbstractController
         $errors = $validator->getErrors($data);
 
         if (count($errors)) {
-            return $this->json($errors, 400);
+            return $this->toJson($errors, 400);
         }
 
         $spaceship = SpaceshipDTO::toArray($this->service->update($data, $guid));
-        return $this->json(OutputBoundary::handle('Spaceship updated with success', $spaceship), 201);
+        return $this->toJson(OutputBoundary::handle('Spaceship updated with success', $spaceship), 201);
     }
 
-    #[Route('/spaceships/{guid}', methods: 'DELETE')]
+    #[Route('/spaceships/{guid}', methods: ['DELETE'])]
     public function remove(string $guid): JsonResponse
     {
         try {
             $this->service->remove($guid);
         } catch (\Exception $e) {
-            return $this->json(OutputBoundary::handle($e->getMessage()), $e->getCode());
+            return $this->toJson(OutputBoundary::handle($e->getMessage()), $e->getCode());
         }
-        return $this->json(null, 204);
+        return $this->toJson(status: 204);
+    }
+
+    #[Route('/spaceships/{guid}', methods: ['OPTIONS'])]
+    public function options(): JsonResponse
+    {
+        return $this->toJson();
     }
 }

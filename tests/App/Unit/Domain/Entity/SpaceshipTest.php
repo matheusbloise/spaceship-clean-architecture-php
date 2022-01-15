@@ -14,25 +14,25 @@ class SpaceshipTest extends TestCase
         self::$spaceship = new Spaceship(guid: null, name: 'Space X', engine: '4 VLV 4/4');
     }
 
-    public function testNewSpaceshipWithNewValidGuidGenerated()
+    public function testNewSpaceshipWithNewValidGuidGenerated(): void
     {
-        self::assertTrue((bool) preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/', self::$spaceship->getGuid()));
+        $this->assertTrue((bool) preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/', self::$spaceship->getGuid()));
     }
 
-    public function testSpaceshipWithValidGuid()
+    public function testSpaceshipWithValidGuid(): void
     {
         $spaceship = new Spaceship(guid: 'f7d97079-118d-42f2-b836-3276ca30fd43', name: 'Space X', engine: '4 VLV 4/4');
-        self::assertTrue((bool) preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/', $spaceship->getGuid()));
+        $this->assertTrue((bool) preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/', $spaceship->getGuid()));
     }
 
-    public function testGetName()
+    public function testGetName(): void
     {
-        self::assertEquals('Space X', self::$spaceship->getName());
+        $this->assertEquals('Space X', self::$spaceship->getName());
     }
 
-    public function testGetEngine()
+    public function testGetEngine(): void
     {
         echo self::$spaceship->getGuid();
-        self::assertEquals('4 VLV 4/4', self::$spaceship->getEngine());
+        $this->assertEquals('4 VLV 4/4', self::$spaceship->getEngine());
     }
 }

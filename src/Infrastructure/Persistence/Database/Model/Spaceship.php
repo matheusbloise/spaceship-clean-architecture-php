@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\Index;
 #[ORM\Entity(repositoryClass: SpaceshipRepository::class)]
 #[ORM\Table(name: 'spaceships')]
 #[Index(columns: ['name'], name: 'search_by_name_idx')]
+#[Index(columns: ['id'], name: 'search_by_id_idx')]
 class Spaceship
 {
     #[ORM\Id]
@@ -24,21 +25,25 @@ class Spaceship
     #[ORM\Column(type: Types::STRING, length: 50)]
     private string $engine;
 
-    public function setId(string $id): self
+    public function __construct(string $id, string $name, string $engine)
     {
         $this->id = $id;
-        return $this;
-    }
-
-    public function setName(string $name): self
-    {
         $this->name = $name;
-        return $this;
+        $this->engine = $engine;
     }
 
-    public function setEngine(string $engine): self
+    public function getId(): string
     {
-        $this->engine = $engine;
-        return $this;
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getEngine(): string
+    {
+        return $this->engine;
     }
 }

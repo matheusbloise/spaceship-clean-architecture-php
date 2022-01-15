@@ -25,7 +25,7 @@ class SpaceshipDTOTest extends TestCase
     public function testToArray(): void
     {
         $spaceshipArray = SpaceshipDTO::toArray($this->spaceship);
-        $this->assertArrayHasKey('id', $spaceshipArray);
+        $this->assertArrayHasKey('guid', $spaceshipArray);
         $this->assertArrayHasKey('name', $spaceshipArray);
         $this->assertArrayHasKey('engine', $spaceshipArray);
     }

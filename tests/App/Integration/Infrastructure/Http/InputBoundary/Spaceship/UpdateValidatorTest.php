@@ -39,7 +39,6 @@ class UpdateValidatorTest extends WebTestCase
     public function testGetErrorsWithValidInput(): void
     {
         $parameters = ['guid' => 'f7d97079-118d-42f2-b836-3276ca30fd43', 'name' => 'Space X', 'engine' => '4 VLV 4/4'];
-        $validator = new UpdateValidator(static::getContainer()->get(ValidatorInterface::class));
         $this->assertEquals([], self::$validator->getErrors($parameters));
     }
 }

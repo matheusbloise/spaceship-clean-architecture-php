@@ -8,23 +8,24 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CreateValidatorTest extends WebTestCase
 {
-    private static CreateValidator $validator;
+    private CreateValidator $validator;
 
-    public static function setUpBeforeClass(): void
+    public function setUp(): void
     {
         self::bootKernel();
-        self::$validator = new CreateValidator(static::getContainer()->get(ValidatorInterface::class));
+        $this->validator = new CreateValidator(static::getContainer()->get(ValidatorInterface::class));
     }
 
     public function testGetErrors(): void
     {
-        $validator = new CreateValidator(static::getContainer()->get(ValidatorInterface::class));
-        $errors = self::$validator->getErrors(['name' => 'Space X', 'engine' => '4 VLV 4/4']);
-        $this->assertEquals([], $errors);
+        $this->assertEquals([
+            'name' => ['This value is not a valid for name field'],
+            'engine' => ['This value is not a valid for engine field'],
+        ], $this->validator->getErrors([]));
     }
 
     public function testGetErrorsWithValidInput(): void
     {
-        $this->assertEquals([], self::$validator->getErrors(['name' => 'Space X', 'engine' => '4 VLV 4/4']));
+        $this->assertEquals([], $this->validator->getErrors(['name' => 'Space X', 'engine' => '4 VLV 4/4']));
     }
 }

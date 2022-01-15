@@ -1,0 +1,240 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Spaceship Clean Architecture",
+        "contact": {
+            "name": "Matheus Bloise",
+            "url": "https://www.linkedin.com/in/matheus-b-9609b885/",
+            "email": "matheusbloisev@hotmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:80",
+            "description": "Local environment"
+        },
+        {
+            "url": "https://your-domain.ms.qa",
+            "description": "Homologation environment"
+        },
+        {
+            "url": "https://your-domain.ms.prod",
+            "description": "Production environment"
+        }
+    ],
+    "paths": {
+        "/spaceships": {
+            "get": {
+                "tags": [
+                    "Spaceship"
+                ],
+                "summary": "find all",
+                "operationId": "a587e7c723d625d63e096788e5522f7c",
+                "responses": {
+                    "200": {
+                        "description": "Spaceships has been found with success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Spaceship"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "{}"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Spaceship"
+                ],
+                "summary": "create",
+                "operationId": "962cbaf46a67aca5e22068b7b884fa0e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "engine"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name",
+                                        "type": "string"
+                                    },
+                                    "engine": {
+                                        "description": "Engine info",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Spaceship has been created with success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Spaceship"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid order"
+                    }
+                }
+            }
+        },
+        "/spaceships/{guid}": {
+            "get": {
+                "tags": [
+                    "Spaceship"
+                ],
+                "summary": "find by guid",
+                "operationId": "dfef28ec3f65935933873ac9e52242a9",
+                "parameters": [
+                    {
+                        "name": "guid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Spaceship has been found with success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Spaceship"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "{}"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Spaceship"
+                ],
+                "summary": "update by guid",
+                "operationId": "6ec03a22d497cec41623f64b66484d5a",
+                "parameters": [
+                    {
+                        "name": "guid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "engine"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name",
+                                        "type": "string"
+                                    },
+                                    "engine": {
+                                        "description": "Engine info",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Spaceship has been updated with success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Spaceship"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid order"
+                    },
+                    "404": {
+                        "description": "Entity not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Spaceship"
+                ],
+                "summary": "delete by guid",
+                "operationId": "7346aa294d08d57b3f616c994ffa8b09",
+                "parameters": [
+                    {
+                        "name": "guid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{}"
+                    },
+                    "404": {
+                        "description": "Entity not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Spaceship": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "f7d97079-118d-42f2-b836-3276ca30fd43"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Swagger Spaceship"
+                    },
+                    "engine": {
+                        "type": "string",
+                        "example": "V12"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

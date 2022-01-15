@@ -51,7 +51,7 @@ class SpaceshipServiceTest extends TestCase
             ->method('findAll')
             ->willReturn(self::$spaceships);
 
-        self::assertIsArray($this->service->findAll());
+        $this->assertIsArray($this->service->findAll());
     }
 
     public function testUpdate(): void

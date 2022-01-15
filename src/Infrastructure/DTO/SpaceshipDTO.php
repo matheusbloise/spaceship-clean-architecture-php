@@ -15,20 +15,17 @@ abstract class SpaceshipDTO
      */
     public static function toModel(SpaceshipEntity $entity): SpaceshipModel
     {
-        return (new SpaceshipModel())
-            ->setId($entity->getGuid())
-            ->setName($entity->getName())
-            ->setEngine($entity->getEngine());
+        return new SpaceshipModel($entity->getGuid(), $entity->getName(), $entity->getEngine());
     }
 
     /**
      * @param SpaceshipEntity $entity
-     * @return array{id: string, name: string, engine: string}
+     * @return array{guid: string, name: string, engine: string}
      */
     public static function toArray(SpaceshipEntity $entity): array
     {
         return [
-            'id' => $entity->getGuid(),
+            'guid' => $entity->getGuid(),
             'name' => $entity->getName(),
             'engine' => $entity->getEngine(),
         ];

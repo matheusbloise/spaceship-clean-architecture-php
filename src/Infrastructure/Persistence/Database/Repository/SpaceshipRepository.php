@@ -38,8 +38,8 @@ class SpaceshipRepository extends ServiceEntityRepository implements SpaceshipRe
             ->createQueryBuilder()
             ->select('s.id, s.name, s.engine')
             ->from(self::TABLE_FROM, 's')
-            ->where('s.id = :id')
-            ->setParameter('id', $guid)
+            ->where('s.id = :guid')
+            ->setParameter('guid', $guid)
             ->getQuery()
             ->execute();
 
@@ -75,8 +75,8 @@ class SpaceshipRepository extends ServiceEntityRepository implements SpaceshipRe
             ->set('s.engine', ':engine')
             ->setParameter('name', $spaceship->getName())
             ->setParameter('engine', $spaceship->getEngine())
-            ->where('s.id = :id')
-            ->setParameter('id', $guid)
+            ->where('s.id = :guid')
+            ->setParameter('guid', $guid)
             ->getQuery()
             ->execute();
         return $spaceship;

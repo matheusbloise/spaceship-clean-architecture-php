@@ -56,7 +56,7 @@ final class SpaceshipService
     }
 
     /**
-     * @param array{name: string, engine: string} $data
+     * @param array{guid: string, name: string, engine: string} $data
      * @param string $guid
      * @return Spaceship
      */

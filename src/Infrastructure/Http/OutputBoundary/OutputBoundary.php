@@ -7,11 +7,11 @@ namespace App\Infrastructure\Http\OutputBoundary;
 abstract class OutputBoundary
 {
 
-    public static function handle(string $message, array $data = []): array
+    public static function handle(string $message, array $content = []): array
     {
         return [
             'message' => $message,
-            'data' => $data,
+            'data' => $content,
         ];
     }
 }

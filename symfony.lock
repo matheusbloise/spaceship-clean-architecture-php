@@ -17,6 +17,18 @@
     "composer/xdebug-handler": {
         "version": "2.0.3"
     },
+    "dama/doctrine-test-bundle": {
+        "version": "6.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "56eaa387b5e48ebcc7c95a893b47dfa1ad51449c"
+        },
+        "files": [
+            "config/packages/test/dama_doctrine_test_bundle.yaml"
+        ]
+    },
     "dnoegel/php-xdg-base-dir": {
         "version": "v0.1.1"
     },
@@ -99,6 +111,9 @@
     },
     "doctrine/sql-formatter": {
         "version": "1.1.2"
+    },
+    "fakerphp/faker": {
+        "version": "v1.18.0"
     },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.2.1"
@@ -249,6 +264,9 @@
     "sebastian/version": {
         "version": "3.0.2"
     },
+    "symfony/browser-kit": {
+        "version": "v5.4.2"
+    },
     "symfony/cache": {
         "version": "v5.4.0"
     },
@@ -270,6 +288,9 @@
             "bin/console"
         ]
     },
+    "symfony/css-selector": {
+        "version": "v5.4.2"
+    },
     "symfony/dependency-injection": {
         "version": "v5.4.1"
     },
@@ -278,6 +299,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v5.4.1"
+    },
+    "symfony/dom-crawler": {
+        "version": "v5.4.2"
     },
     "symfony/dotenv": {
         "version": "v5.4.0"
@@ -345,6 +369,21 @@
     },
     "symfony/options-resolver": {
         "version": "v5.4.0"
+    },
+    "symfony/phpunit-bridge": {
+        "version": "6.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.3",
+            "ref": "97cb3dc7b0f39c7cfc4b7553504c9d7b7795de96"
+        },
+        "files": [
+            ".env.test",
+            "bin/phpunit",
+            "phpunit.xml.dist",
+            "tests/bootstrap.php"
+        ]
     },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.23.1"

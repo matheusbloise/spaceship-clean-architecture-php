@@ -6,8 +6,6 @@ services:
       context: ./.docker/php
     volumes:
       - ./:/app
-    environment:
-      - DB_TEST="postgresql://postgres:postgres@db.test:5432/spaceship?serverVersion=14&charset=utf8"
 
   web:
     image: nginx:latest
@@ -30,17 +28,6 @@ services:
     image: bitnami/postgresql:14.1.0
     ports:
       - '5432:5432'
-    environment:
-      - POSTGRESQL_USERNAME=postgres
-      - POSTGRESQL_PASSWORD=postgres
-      - POSTGRESQL_DATABASE=spaceship
-    volumes:
-      - dbdata://bitnami/postgresql
-
-  db.test:
-    image: bitnami/postgresql:14.1.0
-    ports:
-      - '5433:5432'
     environment:
       - POSTGRESQL_USERNAME=postgres
       - POSTGRESQL_PASSWORD=postgres

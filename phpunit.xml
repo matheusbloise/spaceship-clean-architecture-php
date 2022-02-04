@@ -8,6 +8,7 @@
         </include>
         <exclude>
             <directory suffix=".php">src/Infrastructure/Persistence/Database/Migration</directory>
+            <directory suffix=".php">src/Infrastructure/Persistence/Database/Model</directory>
         </exclude>
         <report>
             <clover outputFile="tests/reports/coverage.xml"/>
@@ -20,7 +21,10 @@
         </testsuite>
     </testsuites>
     <logging/>
+    <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+    </extensions>
     <php>
-        <env name="DATABASE_URL" value="$DB_TEST" />
+        <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/tests/data.db" />
     </php>
 </phpunit>

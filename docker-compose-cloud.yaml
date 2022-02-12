@@ -5,7 +5,7 @@ services:
   php:
     build:
       context: ./.docker/php
-      target: develop
+      target: production
     volumes:
       - ./:/app
 
@@ -37,5 +37,32 @@ services:
     volumes:
       - db-data:/bitnami/postgresql
 
+  prometheus:
+    image: bitnami/prometheus:2.33.1
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./.docker/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+      - prometheus-data:/opt/bitnami/prometheus/data
+
+  grafana:
+    image: grafana/grafana:8.2.6
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./.docker/grafana:/etc/grafana/provisioning/datasources
+    environment:
+      - GF_SECURITY_ADMIN_USER=spaceship
+      - GF_SECURITY_ADMIN_PASSWORD=spaceship
+
+  exporter:
+    image: hipages/php-fpm_exporter:2.0.4
+    ports:
+      - "9253:9253"
+    environment:
+      PHP_FPM_SCRAPE_URI: "tcp://php:9000/status"
+
 volumes:
   db-data:
+  prometheus-data:
+  grafana-data:

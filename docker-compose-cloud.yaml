@@ -62,7 +62,36 @@ services:
     environment:
       PHP_FPM_SCRAPE_URI: "tcp://php:9000/status"
 
+  sonarqube:
+    container_name: sonarqube
+    image: sonarqube:9.1.0-community
+    ports:
+      - "9001:9000"
+    volumes:
+      - "sonar-data:/opt/sonarqube/data"
+      - "sonar-logs:/opt/sonarqube/logs"
+      - "sonar-extensions:/opt/sonarqube/extensions"
+    networks:
+      sonar-net:
+
+  sonarqube-scanner-cli:
+    container_name: sonarqube-scanner-cli
+    image: sonarsource/sonar-scanner-cli:4.4
+    working_dir: "/app"
+    volumes:
+      - "./:/app"
+    depends_on:
+      - sonarqube
+    networks:
+      sonar-net:
+
 volumes:
   db-data:
   prometheus-data:
   grafana-data:
+  sonar-data:
+  sonar-logs:
+  sonar-extensions:
+
+networks:
+  sonar-net:

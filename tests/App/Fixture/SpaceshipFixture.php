@@ -21,11 +21,13 @@ class SpaceshipFixture extends WebTestCase
         if ($quantityToCreate > 10) return;
         $faker = Factory::create();
         for ($i = 0; $i < $quantityToCreate; $i++) {
-            $this->repository->store(SpaceshipDTO::toEntity([
-                'guid' => $faker->uuid(),
-                'name' => $faker->name(),
-                'engine' => $faker->name()
-            ]));
+            $this->repository->store(
+                SpaceshipDTO::toEntity([
+                    'guid' => $faker->uuid(),
+                    'name' => $faker->name(),
+                    'engine' => $faker->name()
+                ])
+            );
         }
     }
 }

@@ -9,12 +9,14 @@ use App\Infrastructure\DTO\SpaceshipDTO;
 use App\Infrastructure\Http\InputBoundary\Spaceship\CreateValidator;
 use App\Infrastructure\Http\InputBoundary\Spaceship\UpdateValidator;
 use App\Infrastructure\Http\OutputBoundary\OutputBoundary;
+use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class SpaceshipController extends BaseController
 {
+    const SPACESHIPS_GUID = '/spaceships/{guid}';
     protected SpaceshipService $service;
 
     public function __construct(SpaceshipService $service)
@@ -34,7 +36,7 @@ final class SpaceshipController extends BaseController
         return $this->toJson(OutputBoundary::handle('Spaceships has been found with success', $spaceship));
     }
 
-    #[Route('/spaceships/{guid}', methods: 'GET')]
+    #[Route(self::SPACESHIPS_GUID, methods: 'GET')]
     public function findByGuid(string $guid): JsonResponse
     {
         $spaceship = $this->service->findByGuid($guid);
@@ -60,7 +62,7 @@ final class SpaceshipController extends BaseController
         return $this->toJson(OutputBoundary::handle('Spaceship created with success', $spaceship), 201);
     }
 
-    #[Route('/spaceships/{guid}', methods: 'PUT')]
+    #[Route(self::SPACESHIPS_GUID, methods: 'PUT')]
     public function update(Request $request, UpdateValidator $validator, string $guid): JsonResponse
     {
         $data = array_merge(['guid' => $guid], $request->request->all());
@@ -74,18 +76,18 @@ final class SpaceshipController extends BaseController
         return $this->toJson(OutputBoundary::handle('Spaceship updated with success', $spaceship), 201);
     }
 
-    #[Route('/spaceships/{guid}', methods: ['DELETE'])]
+    #[Route(self::SPACESHIPS_GUID, methods: ['DELETE'])]
     public function remove(string $guid): JsonResponse
     {
         try {
             $this->service->remove($guid);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->toJson(OutputBoundary::handle($e->getMessage()), $e->getCode());
         }
         return $this->toJson(status: 204);
     }
 
-    #[Route('/spaceships/{guid}', methods: ['OPTIONS'])]
+    #[Route(self::SPACESHIPS_GUID, methods: ['OPTIONS'])]
     public function options(): JsonResponse
     {
         return $this->toJson();

@@ -9,17 +9,17 @@ use App\Domain\Entity\Spaceship;
 interface SpaceshipRepositoryInterface
 {
     /**
-     * @return array{guid: string, name: string, engine: string}
+     * @return array{id: string, name: string, engine: string}
      */
     public function findAll(): array;
 
     /**
      * @param string $guid
-     * @return array{guid: string, name: string, engine: string}
+     * @return array{id: string, name: string, engine: string}
      */
-    public function findByGuid(string $guid): array;
+    public function findById(string $guid): array;
 
-    public function remove(string $guid): void;
+    public function remove(string $guid): bool;
 
     public function store(Spaceship $spaceship): Spaceship;
 

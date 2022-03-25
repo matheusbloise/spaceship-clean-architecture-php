@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Http\Controller;
 
+use Exception;
 use App\Application\Service\SpaceshipService;
 use App\Infrastructure\DTO\SpaceshipDTO;
 use App\Infrastructure\Http\InputBoundary\Spaceship\CreateValidator;
 use App\Infrastructure\Http\InputBoundary\Spaceship\UpdateValidator;
 use App\Infrastructure\Http\OutputBoundary\OutputBoundary;
-use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,12 +37,12 @@ final class SpaceshipController extends BaseController
     }
 
     #[Route(self::SPACESHIPS_GUID, methods: 'GET')]
-    public function findByGuid(string $guid): JsonResponse
+    public function findById(string $guid): JsonResponse
     {
-        $spaceship = $this->service->findByGuid($guid);
-
-        if (count($spaceship) == 0) {
-            return $this->toJson(status: 404);
+        try {
+            $spaceship = $this->service->findById($guid);
+        } catch (Exception $e) {
+            return $this->toJson(OutputBoundary::handle($e->getMessage()), $e->getCode());
         }
 
         return $this->toJson(OutputBoundary::handle('Spaceship has been found with success', $spaceship));

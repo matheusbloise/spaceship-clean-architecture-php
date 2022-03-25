@@ -19,7 +19,7 @@ final class SpaceshipService
     }
 
     /**
-     * @return array{guid: string, name: string, engine: string}
+     * @return array{id: string, name: string, engine: string}
      */
     public function findAll(): array
     {
@@ -28,21 +28,21 @@ final class SpaceshipService
 
     /**
      * @param string $id
-     * @return array{guid: string, name: string, engine: string}
+     * @return array{id: string, name: string, engine: string}
+     * @throws EntityNotFound
      */
-    public function findByGuid(string $id): array
+    public function findById(string $id): array
     {
-        return $this->repository->findByGuid($id);
+        $spaceship = $this->repository->findById($id);
+        return empty($spaceship["id"]) ? throw new EntityNotFound : $spaceship;
     }
 
     /**
      * @throws EntityNotFound
      */
-    public function remove(string $guid): void
+    public function remove(string $id): void
     {
-        count($this->repository->findByGuid($guid)) == 3
-            ? $this->repository->remove($guid)
-            : throw new EntityNotFound();
+        $this->repository->remove($id) ?: throw new EntityNotFound;
     }
 
     /**

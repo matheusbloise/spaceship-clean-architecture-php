@@ -14,6 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class SpaceshipRepository extends ServiceEntityRepository implements SpaceshipRepositoryInterface
 {
     public const TABLE_FROM = 'App:Spaceship';
+    public const WHERE_GUID = 's.id = :guid';
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -31,14 +32,14 @@ class SpaceshipRepository extends ServiceEntityRepository implements SpaceshipRe
             ->execute();
     }
 
-    public function findByGuid(string $guid): array
+    public function findById(string $guid): array
     {
         $entityManager = $this->getEntityManager();
         $query = $entityManager
             ->createQueryBuilder()
             ->select('s.id, s.name, s.engine')
             ->from(self::TABLE_FROM, 's')
-            ->where('s.id = :guid')
+            ->where(self::WHERE_GUID)
             ->setParameter('guid', $guid)
             ->getQuery()
             ->execute();
@@ -46,15 +47,15 @@ class SpaceshipRepository extends ServiceEntityRepository implements SpaceshipRe
         return $query ? reset($query) : $query;
     }
 
-    public function remove(string $guid): void
+    public function remove(string $guid): bool
     {
-        $this->getEntityManager()
+        return $this->getEntityManager()
             ->createQueryBuilder()
             ->delete(self::TABLE_FROM, 's')
-            ->where('s.id = :guid')
+            ->where(self::WHERE_GUID)
             ->setParameter('guid', $guid)
             ->getQuery()
-            ->execute();
+            ->execute() > 0;
     }
 
     public function store(SpaceshipEntity $spaceship): SpaceshipEntity
@@ -75,7 +76,7 @@ class SpaceshipRepository extends ServiceEntityRepository implements SpaceshipRe
             ->set('s.engine', ':engine')
             ->setParameter('name', $spaceship->getName())
             ->setParameter('engine', $spaceship->getEngine())
-            ->where('s.id = :guid')
+            ->where(self::WHERE_GUID)
             ->setParameter('guid', $guid)
             ->getQuery()
             ->execute();

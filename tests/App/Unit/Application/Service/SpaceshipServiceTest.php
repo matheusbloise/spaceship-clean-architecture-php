@@ -2,7 +2,6 @@
 
 namespace App\Unit\Application\Service;
 
-use App\Application\Exception\EntityNotFound;
 use App\Application\Service\SpaceshipService;
 use App\Domain\Entity\Spaceship;
 use App\Domain\Repository\SpaceshipRepositoryInterface;
@@ -77,11 +76,11 @@ class SpaceshipServiceTest extends TestCase
     {
         $this->repositoryMock
             ->expects($this->once())
-            ->method('findByGuid')
+            ->method('findById')
             ->with('f7d97079-118d-42f2-b836-3276ca30fd43')
             ->willReturn(reset(self::$spaceships));
 
-        $result = $this->service->findByGuid('f7d97079-118d-42f2-b836-3276ca30fd43');
+        $result = $this->service->findById('f7d97079-118d-42f2-b836-3276ca30fd43');
 
         $this->assertEquals(3, count($result));
         $this->assertIsArray($result);
@@ -109,36 +108,12 @@ class SpaceshipServiceTest extends TestCase
     public function testRemove(): void
     {
         $guid = 'f7d97079-118d-42f2-b836-3276ca30fd43';
-        $this->repositoryMock
-            ->expects($this->once())
-            ->method('findByGuid')
-            ->with()
-            ->willReturn(reset(self::$spaceships));
 
         $this->repositoryMock
             ->expects($this->once())
             ->method('remove')
-            ->with($guid);
-
-        $this->service->remove($guid);
-    }
-
-    public function testRemoveEntityNotFound(): void
-    {
-        $this->expectException(EntityNotFound::class);
-        $this->expectExceptionCode(404);
-
-        $guid = 'f7d97079-118d-42f2-b836-3276ca30fd43';
-        $this->repositoryMock
-            ->expects($this->once())
-            ->method('findByGuid')
             ->with($guid)
-            ->willReturn([]);
-
-        $this->repositoryMock
-            ->expects($this->never())
-            ->method('remove')
-            ->with($guid);
+            ->willReturn(true);
 
         $this->service->remove($guid);
     }

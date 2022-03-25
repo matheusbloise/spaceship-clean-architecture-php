@@ -37,16 +37,21 @@ class SpaceshipRepositoryTest extends WebTestCase
         $this->assertIsArray($spaceships);
     }
 
-    public function testFindByGuid(): void
+    public function testFindById(): void
     {
-        $spaceship = $this->repository->findByGuid(reset($this->spaceships)['id']);
+        $spaceship = $this->repository->findById(reset($this->spaceships)['id']);
         $this->assertNotEmpty($spaceship);
         $this->assertIsArray($spaceship);
     }
 
     public function testRemove(): void
     {
-        $this->assertNull($this->repository->remove(reset($this->spaceships)['id']));
+        $this->assertTrue($this->repository->remove(reset($this->spaceships)['id']));
+    }
+
+    public function testTryToRemoveEntityNotFound()
+    {
+        self::assertFalse($this->repository->remove(1));;
     }
 
     public function testUpdate(): void

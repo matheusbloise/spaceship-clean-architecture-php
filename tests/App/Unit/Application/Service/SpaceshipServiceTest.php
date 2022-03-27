@@ -2,6 +2,7 @@
 
 namespace App\Unit\Application\Service;
 
+use App\Application\Exception\EntityNotFound;
 use App\Application\Service\SpaceshipService;
 use App\Domain\Entity\Spaceship;
 use App\Domain\Repository\SpaceshipRepositoryInterface;
@@ -72,7 +73,7 @@ class SpaceshipServiceTest extends TestCase
         $this->assertInstanceOf(Spaceship::class, $spaceshipStored);
     }
 
-    public function testFindByGuid(): void
+    public function testFindById(): void
     {
         $this->repositoryMock
             ->expects($this->once())
@@ -84,6 +85,21 @@ class SpaceshipServiceTest extends TestCase
 
         $this->assertEquals(3, count($result));
         $this->assertIsArray($result);
+    }
+
+
+    public function testFindByIdExceptionEntityNotFound(): void
+    {
+        $this->expectException(EntityNotFound::class);
+        $this->expectExceptionCode(404);
+
+        $this->repositoryMock
+            ->expects($this->once())
+            ->method('findById')
+            ->with('1')
+            ->willReturn([]);
+
+        $this->service->findById('1');
     }
 
     public function testStore(): void
@@ -107,14 +123,26 @@ class SpaceshipServiceTest extends TestCase
 
     public function testRemove(): void
     {
-        $guid = 'f7d97079-118d-42f2-b836-3276ca30fd43';
+        $this->repositoryMock
+            ->expects($this->once())
+            ->method('remove')
+            ->with('f7d97079-118d-42f2-b836-3276ca30fd43')
+            ->willReturn(true);
+
+        $this->service->remove('f7d97079-118d-42f2-b836-3276ca30fd43');
+    }
+
+    public function testRemoveExceptionEntityNotFound(): void
+    {
+        $this->expectException(EntityNotFound::class);
+        $this->expectExceptionCode(404);
 
         $this->repositoryMock
             ->expects($this->once())
             ->method('remove')
-            ->with($guid)
-            ->willReturn(true);
+            ->with('1')
+            ->willReturn(false);
 
-        $this->service->remove($guid);
+        $this->service->remove('1');
     }
 }

@@ -26,11 +26,14 @@ class UpdateValidatorTest extends WebTestCase
         ], $errors);
     }
 
-    public function testGetErrorsInvalidGuid(): void
+    /**
+     * @dataProvider invalidGuidDataProvider
+     */
+    public function testGetErrorsInvalidGuid($input, $message): void
     {
-        $errors = self::$validator->getErrors(['guid' => 'invalid uuid']);
+        $errors = self::$validator->getErrors(['guid' => $input]);
         $this->assertEquals([
-            'guid' => ['This is not a valid UUID.'],
+            'guid' => [$message],
             'name' => ['This value is not a valid for name field'],
             'engine' => ['This value is not a valid for engine field'],
         ], $errors);
@@ -40,5 +43,17 @@ class UpdateValidatorTest extends WebTestCase
     {
         $parameters = ['guid' => 'f7d97079-118d-42f2-b836-3276ca30fd43', 'name' => 'Space X', 'engine' => '4 VLV 4/4'];
         $this->assertEquals([], self::$validator->getErrors($parameters));
+    }
+
+    public function invalidGuidDataProvider(): array
+    {
+        return [
+            'Invalid UUID' => [
+                'invalid uuid', 'This is not a valid UUID.'
+            ],
+            'NotNull' => [
+                null, 'This value is not a valid for id field'
+            ],
+        ];
     }
 }

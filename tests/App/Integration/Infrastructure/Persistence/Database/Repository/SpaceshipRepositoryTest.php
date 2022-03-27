@@ -2,6 +2,7 @@
 
 namespace App\Integration\Infrastructure\Persistence\Database\Repository;
 
+use App\Application\Exception\EntityNotFound;
 use App\Domain\Entity\Spaceship;
 use App\Fixture\SpaceshipFixture;
 use App\Infrastructure\Persistence\Database\Repository\SpaceshipRepository;

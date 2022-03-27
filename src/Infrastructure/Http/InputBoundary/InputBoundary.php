@@ -7,7 +7,7 @@ namespace App\Infrastructure\Http\InputBoundary;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class InputBoundary implements InputBoundaryInterface
+abstract class InputBoundary implements InputBoundaryInterface
 {
     public function __construct(private ValidatorInterface $validator)
     {
@@ -25,5 +25,12 @@ class InputBoundary implements InputBoundaryInterface
             $messages[$violation->getPropertyPath()][] = $violation->getMessage();
         }
         return $messages;
+    }
+
+    public function fill(array $data): void
+    {
+        foreach($data as $key => $value) {
+            $this->$key = empty($value) ? null : $value;
+        }
     }
 }

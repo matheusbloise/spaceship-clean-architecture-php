@@ -28,4 +28,29 @@ class CreateValidatorTest extends WebTestCase
     {
         $this->assertEquals([], $this->validator->getErrors(['name' => 'Space X', 'engine' => '4 VLV 4/4']));
     }
+
+    /**
+     * @dataProvider invalidEngineDataProvider
+     * @return void
+     */
+    public function testGetErrorsWithInvalidInput($value)
+    {
+        $validation = $this->validator->getErrors(['engine' => $value]);
+        $this->assertEquals($validation['engine'][0], 'This value is not a valid for engine field');
+    }
+
+    public function invalidEngineDataProvider(): array
+    {
+        return [
+            'Empty' => [
+                ''
+            ],
+            'NotNull' => [
+                null
+            ],
+            'Falsy' => [
+                0
+            ]
+        ];
+    }
 }

@@ -28,11 +28,9 @@ final class SpaceshipController extends BaseController
     public function index(): JsonResponse
     {
         $spaceship = $this->service->findAll();
-
-        if (count($spaceship) == 0) {
+        if (empty($spaceship)) {
             return $this->toJson(status: 404);
         }
-
         return $this->toJson(OutputBoundary::handle('Spaceships has been found with success', $spaceship));
     }
 

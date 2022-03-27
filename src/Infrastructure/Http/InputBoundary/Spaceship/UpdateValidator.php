@@ -12,13 +12,13 @@ final class UpdateValidator extends InputBoundary
 {
     #[Assert\Uuid(message: 'This is not a valid UUID.')]
     #[Assert\NotNull(message: 'This value is not a valid for id field')]
-    private ?string $guid;
+    protected ?string $guid;
 
     #[Assert\NotNull(message: 'This value is not a valid for name field')]
-    private ?string $name;
+    protected ?string $name;
 
     #[Assert\NotNull(message: 'This value is not a valid for engine field')]
-    private ?string $engine;
+    protected ?string $engine;
 
     /**
      * @param array<string, string> $data
@@ -26,9 +26,7 @@ final class UpdateValidator extends InputBoundary
      */
     public function getErrors(array $data): array
     {
-        $this->guid = $data['guid'] ?? null;
-        $this->name = $data['name'] ?? null;
-        $this->engine = $data['engine'] ?? null;
+        $this->fill($data);
         return parent::validate($this);
     }
 }

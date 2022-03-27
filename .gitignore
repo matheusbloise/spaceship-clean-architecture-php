@@ -25,3 +25,7 @@
 ###> sonarqube-scanner-cli ###
 .scannerwork
 ###< sonarqube-scanner-cli ###
+
+###> test reports ###
+/tests/reports/*
+###< test reports ###

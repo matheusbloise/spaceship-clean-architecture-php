@@ -18,8 +18,21 @@ class SpaceshipDTOTest extends TestCase
 
     public function testToModel(): void
     {
+        $guid = $this->spaceship->getGuid();
         $spaceshipModel = SpaceshipDTO::toModel($this->spaceship);
         $this->assertInstanceOf(Model::class, $spaceshipModel);
+        self::assertSame(
+            [
+                'guid' => $guid,
+                'name' => $this->spaceship->getName(),
+                'engine' => $this->spaceship->getEngine()
+            ],
+            [
+                'guid' => $spaceshipModel->getId(),
+                'name' => $spaceshipModel->getName(),
+                'engine' => $spaceshipModel->getEngine()
+            ]
+        );
     }
 
     public function testToArray(): void

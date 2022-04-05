@@ -71,7 +71,7 @@ final class SpaceshipController extends BaseController
         }
 
         $spaceship = SpaceshipDTO::toArray($this->service->update($data, $guid));
-        return $this->toJson(OutputBoundary::handle('Spaceship updated with success', $spaceship), 201);
+        return $this->toJson(OutputBoundary::handle('Spaceship updated with success', $spaceship));
     }
 
     #[Route(self::SPACESHIPS_GUID, methods: ['DELETE'])]

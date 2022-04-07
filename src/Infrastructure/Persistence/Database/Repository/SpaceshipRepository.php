@@ -14,6 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class SpaceshipRepository extends ServiceEntityRepository implements SpaceshipRepositoryInterface
 {
     public const TABLE_FROM = 'App:Spaceship';
+
     public const WHERE_GUID = 's.id = :guid';
 
     public function __construct(ManagerRegistry $registry)

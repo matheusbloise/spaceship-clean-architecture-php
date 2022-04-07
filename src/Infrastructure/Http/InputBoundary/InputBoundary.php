@@ -29,8 +29,8 @@ abstract class InputBoundary implements InputBoundaryInterface
 
     public function fill(array $data): void
     {
-        foreach($data as $key => $value) {
-            $this->$key = empty($value) ? null : $value;
+        foreach ($data as $key => $value) {
+            $this->{$key} = empty($value) ? null : $value;
         }
     }
 }

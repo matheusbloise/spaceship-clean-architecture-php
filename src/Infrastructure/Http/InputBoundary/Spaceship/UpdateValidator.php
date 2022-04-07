@@ -6,7 +6,6 @@ namespace App\Infrastructure\Http\InputBoundary\Spaceship;
 
 use App\Infrastructure\Http\InputBoundary\InputBoundary;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class UpdateValidator extends InputBoundary
 {

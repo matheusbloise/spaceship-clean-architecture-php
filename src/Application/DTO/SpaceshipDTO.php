@@ -10,7 +10,6 @@ final class SpaceshipDTO
 {
     /**
      * @param array{guid?: string, name: string, engine: string} $spaceship
-     * @return Spaceship
      */
     public static function toEntity(array $spaceship): Spaceship
     {

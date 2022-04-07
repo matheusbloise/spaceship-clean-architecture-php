@@ -27,14 +27,13 @@ final class SpaceshipService
     }
 
     /**
-     * @param string $id
-     * @return array{id: string, name: string, engine: string}
      * @throws EntityNotFound
+     * @return array{id: string, name: string, engine: string}
      */
     public function findById(string $id): array
     {
         $spaceship = $this->repository->findById($id);
-        return empty($spaceship["id"]) ? throw new EntityNotFound : $spaceship;
+        return empty($spaceship['id']) ? throw new EntityNotFound() : $spaceship;
     }
 
     /**
@@ -42,12 +41,11 @@ final class SpaceshipService
      */
     public function remove(string $id): void
     {
-        $this->repository->remove($id) ?: throw new EntityNotFound;
+        $this->repository->remove($id) ?: throw new EntityNotFound();
     }
 
     /**
      * @param array{name: string, engine: string} $data
-     * @return Spaceship
      */
     public function store(array $data): Spaceship
     {
@@ -57,8 +55,6 @@ final class SpaceshipService
 
     /**
      * @param array{guid: string, name: string, engine: string} $data
-     * @param string $guid
-     * @return Spaceship
      */
     public function update(array $data, string $guid): Spaceship
     {

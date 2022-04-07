@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Http\Controller;
 
-use Exception;
 use App\Application\Service\SpaceshipService;
 use App\Infrastructure\DTO\SpaceshipDTO;
 use App\Infrastructure\Http\InputBoundary\Spaceship\CreateValidator;
 use App\Infrastructure\Http\InputBoundary\Spaceship\UpdateValidator;
 use App\Infrastructure\Http\OutputBoundary\OutputBoundary;
+use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class SpaceshipController extends BaseController
 {
-    const SPACESHIPS_GUID = '/spaceships/{guid}';
+    public const SPACESHIPS_GUID = '/spaceships/{guid}';
+
     protected SpaceshipService $service;
 
     public function __construct(SpaceshipService $service)

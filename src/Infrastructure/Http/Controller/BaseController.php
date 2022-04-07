@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Infrastructure\Http\Controller;
 
@@ -16,7 +18,7 @@ class BaseController extends AbstractController
     {
         return [
             'Access-Control-Allow-Origin' => getenv('CLIENT_AUTHORIZED') ?: 'http://localhost:81',
-            'Access-Control-Allow-Methods' => 'DELETE, PUT'
+            'Access-Control-Allow-Methods' => 'DELETE, PUT',
         ];
     }
 }

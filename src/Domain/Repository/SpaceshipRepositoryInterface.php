@@ -14,7 +14,6 @@ interface SpaceshipRepositoryInterface
     public function findAll(): array;
 
     /**
-     * @param string $guid
      * @return array{id: string, name: string, engine: string}
      */
     public function findById(string $guid): array;

@@ -9,17 +9,12 @@ use App\Infrastructure\Persistence\Database\Model\Spaceship as SpaceshipModel;
 
 abstract class SpaceshipDTO
 {
-    /**
-     * @param SpaceshipEntity $entity
-     * @return SpaceshipModel
-     */
     public static function toModel(SpaceshipEntity $entity): SpaceshipModel
     {
         return new SpaceshipModel($entity->getGuid(), $entity->getName(), $entity->getEngine());
     }
 
     /**
-     * @param SpaceshipEntity $entity
      * @return array{guid: string, name: string, engine: string}
      */
     public static function toArray(SpaceshipEntity $entity): array

@@ -9,10 +9,6 @@ use App\Infrastructure\DTO\SpaceshipDTO;
 use App\Infrastructure\Persistence\Database\Model\Spaceship as Model;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class SpaceshipDTOTest extends TestCase
 {
     private Entity $spaceship;

@@ -9,10 +9,6 @@ use App\Infrastructure\Persistence\Database\Repository\SpaceshipRepository;
 use Faker\Factory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class SpaceshipFixture extends WebTestCase
 {
     private SpaceshipRepository $repository;

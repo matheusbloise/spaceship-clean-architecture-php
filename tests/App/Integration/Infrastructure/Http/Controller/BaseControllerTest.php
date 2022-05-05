@@ -8,10 +8,6 @@ use App\Infrastructure\Http\Controller\BaseController;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-/**
- * @internal
- * @coversNothing
- */
 class BaseControllerTest extends WebTestCase
 {
     private BaseController $baseController;

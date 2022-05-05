@@ -7,10 +7,6 @@ namespace App\Integration\Infrastructure\Http\OutputBoundary;
 use App\Infrastructure\Http\OutputBoundary\OutputBoundary;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class OutputBoundaryTest extends TestCase
 {
     public function testHandle(): void

@@ -8,10 +8,6 @@ use App\Application\DTO\SpaceshipDTO;
 use App\Domain\Entity\Spaceship;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class SpaceshipDTOTest extends TestCase
 {
     public function testToEntity(): void

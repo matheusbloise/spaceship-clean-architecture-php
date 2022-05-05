@@ -8,10 +8,6 @@ use App\Infrastructure\Http\Controller\BaseController;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-/**
- * @internal
- * @coversNothing
- */
 class BaseControllerTest extends TestCase
 {
     public function testCors(): void

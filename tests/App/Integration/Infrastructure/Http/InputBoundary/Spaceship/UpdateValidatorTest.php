@@ -8,10 +8,6 @@ use App\Infrastructure\Http\InputBoundary\Spaceship\UpdateValidator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * @internal
- * @coversNothing
- */
 class UpdateValidatorTest extends WebTestCase
 {
     private static UpdateValidator $validator;

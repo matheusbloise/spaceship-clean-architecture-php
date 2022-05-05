@@ -10,10 +10,6 @@ use App\Domain\Entity\Spaceship;
 use App\Domain\Repository\SpaceshipRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class SpaceshipServiceTest extends TestCase
 {
     private static array $spaceships;

@@ -9,10 +9,6 @@ use App\Fixture\SpaceshipFixture;
 use App\Infrastructure\Persistence\Database\Repository\SpaceshipRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class SpaceshipRepositoryTest extends WebTestCase
 {
     private SpaceshipRepository $repository;

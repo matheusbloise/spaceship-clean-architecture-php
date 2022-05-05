@@ -8,10 +8,6 @@ use App\Infrastructure\Http\InputBoundary\Spaceship\CreateValidator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * @internal
- * @coversNothing
- */
 class CreateValidatorTest extends WebTestCase
 {
     private CreateValidator $validator;

@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Integration\Infrastructure\Http\InputBoundary\Spaceship;
 
 use App\Infrastructure\Http\InputBoundary\Spaceship\UpdateValidator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class UpdateValidatorTest extends WebTestCase
 {
     private static UpdateValidator $validator;
@@ -29,7 +35,7 @@ class UpdateValidatorTest extends WebTestCase
     /**
      * @dataProvider invalidGuidDataProvider
      */
-    public function testGetErrorsInvalidGuid($input, $message): void
+    public function testGetErrorsInvalidGuid(mixed $input, mixed $message): void
     {
         $errors = self::$validator->getErrors(['guid' => $input]);
         $this->assertEquals([
@@ -49,10 +55,10 @@ class UpdateValidatorTest extends WebTestCase
     {
         return [
             'Invalid UUID' => [
-                'invalid uuid', 'This is not a valid UUID.'
+                'invalid uuid', 'This is not a valid UUID.',
             ],
             'NotNull' => [
-                null, 'This value is not a valid for id field'
+                null, 'This value is not a valid for id field',
             ],
         ];
     }

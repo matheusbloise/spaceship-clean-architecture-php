@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Integration\Infrastructure\Http\InputBoundary\Spaceship;
 
 use App\Infrastructure\Http\InputBoundary\Spaceship\CreateValidator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class CreateValidatorTest extends WebTestCase
 {
     private CreateValidator $validator;
@@ -31,26 +37,25 @@ class CreateValidatorTest extends WebTestCase
 
     /**
      * @dataProvider invalidEngineDataProvider
-     * @return void
      */
-    public function testGetErrorsWithInvalidInput($value)
+    public function testGetErrorsWithInvalidInput(mixed $value)
     {
         $validation = $this->validator->getErrors(['engine' => $value]);
-        $this->assertEquals($validation['engine'][0], 'This value is not a valid for engine field');
+        $this->assertEquals('This value is not a valid for engine field', $validation['engine'][0]);
     }
 
     public function invalidEngineDataProvider(): array
     {
         return [
             'Empty' => [
-                ''
+                '',
             ],
             'NotNull' => [
-                null
+                null,
             ],
             'Falsy' => [
-                0
-            ]
+                0,
+            ],
         ];
     }
 }

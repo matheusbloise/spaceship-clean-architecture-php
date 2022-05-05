@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Integration\Infrastructure\Persistence\Database\Repository;
 
 use App\Domain\Entity\Spaceship;
@@ -7,9 +9,14 @@ use App\Fixture\SpaceshipFixture;
 use App\Infrastructure\Persistence\Database\Repository\SpaceshipRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SpaceshipRepositoryTest extends WebTestCase
 {
     private SpaceshipRepository $repository;
+
     private array $spaceships;
 
     protected function setUp(): void
@@ -18,11 +25,6 @@ class SpaceshipRepositoryTest extends WebTestCase
         (new SpaceshipFixture())->builder();
         $this->repository = static::getContainer()->get(SpaceshipRepository::class);
         $this->spaceships = $this->repository->findAll();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
     }
 
     public function testFindAll(): void
@@ -46,7 +48,7 @@ class SpaceshipRepositoryTest extends WebTestCase
 
     public function testTryToRemoveEntityNotFound()
     {
-        self::assertFalse($this->repository->remove(1));;
+        self::assertFalse($this->repository->remove('1'));
     }
 
     public function testUpdate(): void

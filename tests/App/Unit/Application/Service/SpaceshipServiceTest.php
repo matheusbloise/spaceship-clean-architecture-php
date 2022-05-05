@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Unit\Application\Service;
 
 use App\Application\Exception\EntityNotFound;
@@ -8,18 +10,17 @@ use App\Domain\Entity\Spaceship;
 use App\Domain\Repository\SpaceshipRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SpaceshipServiceTest extends TestCase
 {
     private static array $spaceships;
-    private SpaceshipRepositoryInterface $repositoryMock;
-    private SpaceshipService $service;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->repositoryMock = $this->createMock(SpaceshipRepositoryInterface::class);
-        $this->service = new SpaceshipService($this->repositoryMock);
-    }
+    private SpaceshipRepositoryInterface $repositoryMock;
+
+    private SpaceshipService $service;
 
     public static function setUpBeforeClass(): void
     {
@@ -28,12 +29,12 @@ class SpaceshipServiceTest extends TestCase
             [
                 'id' => 'f7d97079-118d-42f2-b836-3276ca30fd43',
                 'name' => 'Space X',
-                'engine' => '4 VLV 4/4'
+                'engine' => '4 VLV 4/4',
             ],
             [
                 'id' => 'f7d97079-118d-42f2-b836-3276ca30fd43',
                 'name' => 'Space X',
-                'engine' => '4 VLV 4/4'
+                'engine' => '4 VLV 4/4',
             ],
         ];
     }
@@ -42,6 +43,13 @@ class SpaceshipServiceTest extends TestCase
     {
         parent::tearDownAfterClass();
         self::$spaceships = [];
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->repositoryMock = $this->createMock(SpaceshipRepositoryInterface::class);
+        $this->service = new SpaceshipService($this->repositoryMock);
     }
 
     public function testFindAll(): void
@@ -83,10 +91,9 @@ class SpaceshipServiceTest extends TestCase
 
         $result = $this->service->findById('f7d97079-118d-42f2-b836-3276ca30fd43');
 
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
         $this->assertIsArray($result);
     }
-
 
     public function testFindByIdExceptionEntityNotFound(): void
     {
@@ -111,7 +118,7 @@ class SpaceshipServiceTest extends TestCase
             engine: $spaceshipArray['engine']
         );
         unset($spaceshipArray['id']);
-            
+
         $this->repositoryMock
             ->expects($this->once())
             ->method('store')

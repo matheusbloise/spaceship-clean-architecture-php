@@ -1,21 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Unit\Application\DTO;
 
 use App\Application\DTO\SpaceshipDTO;
 use App\Domain\Entity\Spaceship;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SpaceshipDTOTest extends TestCase
 {
     public function testToEntity(): void
     {
         $spaceship = SpaceshipDTO::toEntity([
-            'guid' => 'f7d97079-118d-42f2-b836-3276ca30fd43', 
-            'name' => 'Space X', 
-            'engine' => '4 VLV 4/4'
+            'guid' => 'f7d97079-118d-42f2-b836-3276ca30fd43',
+            'name' => 'Space X',
+            'engine' => '4 VLV 4/4',
         ]);
-        
+
         self::assertInstanceOf(Spaceship::class, $spaceship);
     }
 

@@ -73,12 +73,12 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "test": "vendor/bin/phpunit --testsuite=Unit,Integration",
-        "openapi": "vendor/bin/openapi .docker/openapi/swagger/specification --output .docker/openapi/swagger/swagger.json --format json --version 3.0.0",
-        "cs-fixer": "vendor/bin/php-cs-fixer fix --allow-risky=yes src/",
+        "test": "phpunit --testsuite=Unit,Integration",
+        "openapi": "openapi .docker/openapi/swagger/specification --output .docker/openapi/swagger/swagger.json --format json --version 3.0.0 --legacy",
+        "cs-fix": "php-cs-fixer fix --allow-risky=yes $1",
         "check-style": [
-            "vendor/bin/phpstan analyze --memory-limit 200M",
-            "vendor/bin/psalm"
+            "phpstan analyze --memory-limit 200M",
+            "psalm"
         ]
     },
     "scripts-descriptions": {

@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Unit\Infrastructure\Http\Controller;
 
+use App\Infrastructure\Http\Controller\BaseController;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use App\Infrastructure\Http\Controller\BaseController;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class BaseControllerTest extends TestCase
 {
     public function testCors(): void
@@ -14,9 +20,9 @@ class BaseControllerTest extends TestCase
         $reflectionClass = $reflectionClass->getMethod('cors');
         $reflectionClass->setAccessible(true);
 
-        $this->assertEquals($reflectionClass->invoke(new BaseController), [
+        $this->assertEquals([
             'Access-Control-Allow-Origin' => 'http://localhost:81',
-            'Access-Control-Allow-Methods' => 'DELETE, PUT'
-        ]);
+            'Access-Control-Allow-Methods' => 'DELETE, PUT',
+        ], $reflectionClass->invoke(new BaseController()));
     }
 }

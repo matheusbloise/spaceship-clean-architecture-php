@@ -1,10 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Unit\Domain\Entity;
 
 use App\Domain\Entity\Spaceship;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SpaceshipTest extends TestCase
 {
     private static Spaceship $spaceship;

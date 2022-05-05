@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Integration\Infrastructure\Http\Controller;
 
 use App\Fixture\SpaceshipFixture;
@@ -7,6 +9,10 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SpaceshipControllerTest extends WebTestCase
 {
     private static KernelBrowser $client;
@@ -41,7 +47,7 @@ class SpaceshipControllerTest extends WebTestCase
         $spaceships = json_decode($this->getSpaceships()->getContent())->data;
         $id = reset($spaceships)->id;
 
-        self::$client->request('GET', "/spaceships/$id");
+        self::$client->request('GET', "/spaceships/{$id}");
         $response = self::$client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -50,7 +56,7 @@ class SpaceshipControllerTest extends WebTestCase
 
     public function testFindByIdNotFound(): void
     {
-        self::$client->request('GET', "/spaceships/1");
+        self::$client->request('GET', '/spaceships/1');
         $response = self::$client->getResponse();
 
         $this->assertEquals(404, $response->getStatusCode());
@@ -63,7 +69,7 @@ class SpaceshipControllerTest extends WebTestCase
         (new SpaceshipFixture())->builder();
         $spaceships = json_decode($this->getSpaceships()->getContent())->data;
         $id = reset($spaceships)->id;
-        self::$client->request('DELETE', "/spaceships/$id");
+        self::$client->request('DELETE', "/spaceships/{$id}");
         $response = self::$client->getResponse();
 
         $this->assertEquals(204, $response->getStatusCode());
@@ -72,7 +78,7 @@ class SpaceshipControllerTest extends WebTestCase
 
     public function testRemoveNotFound(): void
     {
-        self::$client->request('DELETE', "/spaceships/1");
+        self::$client->request('DELETE', '/spaceships/1');
         $response = self::$client->getResponse();
 
         $this->assertEquals(404, $response->getStatusCode());
@@ -81,9 +87,9 @@ class SpaceshipControllerTest extends WebTestCase
 
     public function testStore()
     {
-        self::$client->request('POST', "/spaceships", [
+        self::$client->request('POST', '/spaceships', [
             'name' => 'Swagger Spaceship',
-            'engine' => 'V12'
+            'engine' => 'V12',
         ]);
 
         $response = self::$client->getResponse();
@@ -94,7 +100,7 @@ class SpaceshipControllerTest extends WebTestCase
     public function testStoreInvalid()
     {
         (new SpaceshipFixture())->builder();
-        self::$client->request('POST', "/spaceships");
+        self::$client->request('POST', '/spaceships');
         $this->assertEquals(400, self::$client->getResponse()->getStatusCode());
     }
 
@@ -107,9 +113,9 @@ class SpaceshipControllerTest extends WebTestCase
         $this->assertNotEquals('Swagger Spaceship', $spaceship->name);
         $this->assertNotEquals('V12', $spaceship->engine);
 
-        self::$client->request('PUT', "/spaceships/$spaceship->id", [
+        self::$client->request('PUT', "/spaceships/{$spaceship->id}", [
             'name' => 'Swagger Spaceship',
-            'engine' => 'V12'
+            'engine' => 'V12',
         ]);
 
         $response = self::$client->getResponse();
@@ -125,15 +131,15 @@ class SpaceshipControllerTest extends WebTestCase
         (new SpaceshipFixture())->builder();
         $spaceships = json_decode($this->getSpaceships()->getContent())->data;
         $spaceship = reset($spaceships);
-        self::$client->request('PUT', "/spaceships/$spaceship->id", [
-            'name' => 'Swagger Spaceship'
+        self::$client->request('PUT', "/spaceships/{$spaceship->id}", [
+            'name' => 'Swagger Spaceship',
         ]);
         $this->assertEquals(400, self::$client->getResponse()->getStatusCode());
     }
 
     public function testOptions()
     {
-        self::$client->request('OPTIONS', "/spaceships/1");
+        self::$client->request('OPTIONS', '/spaceships/1');
         $this->assertEquals(200, self::$client->getResponse()->getStatusCode());
     }
 }

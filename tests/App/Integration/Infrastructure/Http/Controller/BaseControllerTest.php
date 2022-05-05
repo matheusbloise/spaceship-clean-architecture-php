@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Integration\Infrastructure\Http\Controller;
 
 use App\Infrastructure\Http\Controller\BaseController;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class BaseControllerTest extends WebTestCase
 {
     private BaseController $baseController;
@@ -25,6 +31,6 @@ class BaseControllerTest extends WebTestCase
         $response = $this->baseController->toJson();
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals('200', $response->getStatusCode());
-        $this->assertEquals("{}", $response->getContent());
+        $this->assertEquals('{}', $response->getContent());
     }
 }

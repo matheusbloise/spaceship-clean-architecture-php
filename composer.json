@@ -84,7 +84,7 @@
     "scripts-descriptions": {
         "test": "Run all test suite",
         "openapi": "Generate OpenAPI json file",
-        "cs-fixer": "CS Fixer with allow risky enable",
+        "cs-fix": "CS Fixer with allow risky enable",
         "check-style": "Analyze Application and Domain with maximus level using phpstan and psalm"
     },
     "conflict": {

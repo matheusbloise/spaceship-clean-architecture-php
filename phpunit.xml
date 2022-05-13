@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         colors="true"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd">
-    <coverage processUncoveredFiles="true">
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        bootstrap="./tests/bootstrap.php"
+        colors="true"
+        testdox="true"
+        xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+>
+    <coverage>
         <include>
             <directory suffix=".php">./src</directory>
         </include>
@@ -22,11 +26,7 @@
             <directory>./tests/App/Integration</directory>
         </testsuite>
     </testsuites>
-    <logging/>
     <extensions>
         <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
     </extensions>
-    <php>
-        <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/tests/data.db" />
-    </php>
 </phpunit>

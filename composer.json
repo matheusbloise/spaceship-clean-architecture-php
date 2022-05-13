@@ -73,7 +73,10 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "test": "phpunit --testsuite=Unit,Integration",
+        "test": [
+            "composer dump-env test",
+            "phpunit --testsuite=Unit,Integration"
+        ],
         "openapi": "openapi .docker/openapi/swagger/specification --output .docker/openapi/swagger/swagger.json --format json --version 3.0.0 --legacy",
         "cs-fix": "php-cs-fixer fix --allow-risky=yes $1",
         "check-style": [
